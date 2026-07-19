@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+@theme {
+  /* Navy / Dark color palette from the Checkmark dashboard image */
+  --color-navy-950: #0d1117;
+  --color-navy-900: #131924;
+  --color-navy-800: #1a2133;
+  --color-navy-700: #212b40;
+  --color-navy-600: #2a3650;
+  --color-navy-500: #3d4f6f;
+  --color-navy-400: #5a6f94;
+  --color-navy-300: #8899b8;
+  --color-navy-200: #b0bdd4;
+  --color-navy-100: #d4dce9;
+  --color-navy-50: #edf1f7;
+
+  /* Accent colors for tags */
+  --color-accent-blue: #3b82f6;
+  --color-accent-green: #22c55e;
+  --color-accent-yellow: #eab308;
+  --color-accent-red: #ef4444;
+  --color-accent-purple: #a855f7;
+  --color-accent-pink: #ec4899;
+  --color-accent-orange: #f97316;
+  --color-accent-teal: #14b8a6;
+
+  /* Brand color from the logo */
+  --color-brand: #1e3a5f;
+  --color-brand-light: #2d5a8e;
+
+  /* Font */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Import Inter from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Smooth transitions for dark/light mode */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Color picker needs instant updates — override the global transition */
+.color-picker-area,
+.color-picker-area * {
+  transition: none !important;
+}
+
+/* Clipboard color swatches (sidebar icons, list rows, badges) are updated live
+   via direct DOM writes and need to track the color picker instantly. */
+.clipboard-color-swatch {
+  transition: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-navy-600);
+  border-radius: 3px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-navy-400);
+}
+
+/* Splash screen animation */
+@keyframes splashFadeScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes checkPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animate-splash-out {
+  animation: splashFadeScale 0.6s ease-in-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-out-right {
+  animation: slideOutRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-check-pop {
+  animation: checkPop 0.25s ease-out;
+}
+
+@keyframes calendarIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-calendar-in {
+  animation: calendarIn 0.15s ease-out forwards;
+}
+
+/* Brief flash to draw the eye to a search result after navigating to it */
+@keyframes searchHighlight {
+  0%, 100% { background-color: transparent; }
+  15%, 65% { background-color: rgba(59, 130, 246, 0.18); }
+}
+
+.animate-search-highlight {
+  animation: searchHighlight 1.6s ease-in-out;
+}
+
+/* Checkbox styles */
+.task-checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.dark .task-checkbox {
+  border-color: var(--color-navy-500);
+  background: transparent;
+}
+
+.light .task-checkbox {
+  border-color: #d1d5db;
+  background: transparent;
+}
+
+.task-checkbox:checked {
+  background-color: var(--color-accent-blue);
+  border-color: var(--color-accent-blue);
+}
+
+.task-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.task-checkbox:hover {
+  border-color: var(--color-accent-blue);
+}
+
+/* Tag colors */
+.tag-blue { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.tag-green { background-color: rgba(34, 197, 94, 0.15); color: #4ade80; }
+.tag-yellow { background-color: rgba(234, 179, 8, 0.15); color: #facc15; }
+.tag-red { background-color: rgba(239, 68, 68, 0.15); color: #f87171; }
+.tag-purple { background-color: rgba(168, 85, 247, 0.15); color: #c084fc; }
+.tag-pink { background-color: rgba(236, 72, 153, 0.15); color: #f472b6; }
+.tag-orange { background-color: rgba(249, 115, 22, 0.15); color: #fb923c; }
+.tag-teal { background-color: rgba(20, 184, 166, 0.15); color: #2dd4bf; }
+
+/* Light mode tag overrides */
+.light .tag-blue { background-color: rgba(59, 130, 246, 0.1); color: #2563eb; }
+.light .tag-green { background-color: rgba(34, 197, 94, 0.1); color: #16a34a; }
+.light .tag-yellow { background-color: rgba(234, 179, 8, 0.1); color: #ca8a04; }
+.light .tag-red { background-color: rgba(239, 68, 68, 0.1); color: #dc2626; }
+.light .tag-purple { background-color: rgba(168, 85, 247, 0.1); color: #9333ea; }
+.light .tag-pink { background-color: rgba(236, 72, 153, 0.1); color: #db2777; }
+.light .tag-orange { background-color: rgba(249, 115, 22, 0.1); color: #ea580c; }
+.light .tag-teal { background-color: rgba(20, 184, 166, 0.1); color: #0d9488; }
+
+/* Custom underline handling to ensure color matches custom text colors */
+u, [style*="text-decoration: underline"], [style*="text-decoration-line: underline"] {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
+}
+
+/* If the underline element has colored children, delegate the underline to the children so the line matches the text color */
+u:has(font), u:has(span), 
+[style*="text-decoration: underline"]:has(font), [style*="text-decoration: underline"]:has(span),
+[style*="text-decoration-line: underline"]:has(font), [style*="text-decoration-line: underline"]:has(span) {
+  text-decoration: none !important;
+}
+
+u font, u span, 
+[style*="text-decoration: underline"] font, [style*="text-decoration: underline"] span,
+[style*="text-decoration-line: underline"] font, [style*="text-decoration-line: underline"] span {
+  text-decoration: underline !important;
+  text-decoration-color: currentColor !important;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
+}
+
+/* Disable transitions on formatting toolbar and child elements for instant updates */
+.formatting-toolbar-transition-override,
+.formatting-toolbar-transition-override * {
+  transition: none !important;
+}
+
+/* Preserve text color during selection highlight */
+::selection {
+  background: rgba(59, 130, 246, 0.35) !important;
+  color: inherit !important;
+}
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.35) !important;
+  color: inherit !important;
+}
+
+/* List title/description fields render their own persistent highlight overlay (see
+   TaskList.jsx) instead of relying on the native selection, since the native highlight
+   disappears as soon as focus moves into the formatting toolbar. Hide the native one so
+   the two don't visually stack/mismatch. */
+.formatting-editable::selection {
+  background: transparent !important;
+}
+.formatting-editable::-moz-selection {
+  background: transparent !important;
+}
+
+b, strong {
+  font-weight: bold !important;
+}
+
+[contenteditable], [contenteditable] * {
+  transition: none !important;
+}
