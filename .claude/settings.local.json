@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(npx eslint src/context/TaskContext.jsx src/components/Sidebar.jsx src/components/TaskList.jsx src/components/TaskItem.jsx src/components/TaskDetailPanel.jsx src/components/ClipboardsPage.jsx src/components/ClipboardDetailPage.jsx src/components/CustomCalendar.jsx 2>&1)"
-    ]
-  }
-}
